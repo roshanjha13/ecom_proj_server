@@ -1,7 +1,7 @@
 const { validationResult } = require("express-validator");
 
 const UserModel = require("../models/userModel");
-const { hashedPassword } = require("../services/authServices");
+const { hashedPassword, createToken } = require("../services/authServices");
 
 exports.register = async (req, res) => {
   const errors = validationResult(req);
@@ -18,9 +18,13 @@ exports.register = async (req, res) => {
           email,
           password: hashed,
         });
+
+        const token = createToken({ id: user._id, name: user.name });
+
         res.status(201).json({
           data: user,
           message: `${name} your account created successfully`,
+          token,
         });
       } else {
         res
