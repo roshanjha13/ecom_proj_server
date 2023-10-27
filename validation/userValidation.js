@@ -13,3 +13,17 @@ exports.registerValidation = [
     .escape()
     .withMessage("password will be greater than 5 characters"),
 ];
+exports.loginValidation = [
+  body("email")
+    .isEmail()
+    .normalizeEmail()
+    .escape()
+    .withMessage("email is required or emial is wrong format"),
+
+  body("password")
+    .isLength({ min: 5 })
+    .escape()
+    .withMessage(
+      "password is required and password will be greater than 5 characters"
+    ),
+];

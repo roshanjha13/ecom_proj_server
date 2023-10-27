@@ -12,3 +12,7 @@ exports.createToken = (user) => {
     expiresIn: "2d",
   });
 };
+
+exports.comparePassord = async (password, dbPassword) => {
+  return await bcrypt.compare(password, dbPassword);
+};
